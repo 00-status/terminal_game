@@ -1,0 +1,6 @@
+/node_modules/*
+/dist/fonts/*
+/dist/images/*
+/dist/bundle.js
+/dist/bundle.js.LICENSE.txt
+.DS_Store
