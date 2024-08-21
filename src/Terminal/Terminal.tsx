@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { TerminalDirectory } from "./domain/types";
+
+import './terminal.css';
+import { Command, TerminalDirectory } from "./domain/types";
 
 export const Terminal = () => {
     const [currentDirectory, setCurrentDirectory] = useState<TerminalDirectory>();
 
-    const [commands, setCommands] = useState<Array<string>>([]);
-    const [currentValue, setCurrentValue] = useState<string>('');
+    const [commands, setCommands] = useState<Array<Command>>([]);
+    const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand());
 
     // Have an input directly below a div.
     // as commands are executed, the appear in the div.
@@ -14,24 +16,29 @@ export const Terminal = () => {
     //      const element = document.getElementById(id);
     //      element.scrollTop = element.scrollHeight;
 
-    return <div>
+    return <div className="terminal">
         <h1>Hello world!</h1>
         <div>
-            {commands.map((command) => <div key={command}>{command}</div>)}
+            {commands.map((command) => <div key={command.id}>{command.text}</div>)}
         </div>
         <input
-            value={currentValue}
+            value={currentCommand.text}
             onChange={(event) => {
                 const newValue = event.target.value ?? '';
-                setCurrentValue(newValue);
+
+                setCurrentCommand({ ...currentCommand, text: newValue });
             }}
             onKeyUp={(event) => {
-                if (event.key === 'Enter' && currentValue)
+                if (event.key === 'Enter' && currentCommand.text)
                 {
-                    setCommands([...commands, currentValue]);
-                    setCurrentValue('');
+                    setCommands([...commands, currentCommand]);
+                    setCurrentCommand(createNewCommand());
                 }
             }}
         />
     </div>;
+};
+
+const createNewCommand = (): Command => {
+    return { id: crypto.randomUUID(), text: '', workingDirectory: '' };
 };

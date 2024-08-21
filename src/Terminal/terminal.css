@@ -1,0 +1,20 @@
+#app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 24px;
+}
+
+.terminal {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+
+    gap: 24px;
+}
+
+.terminal__input {
+    border: none;
+}

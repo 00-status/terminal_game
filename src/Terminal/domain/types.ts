@@ -13,3 +13,9 @@ export type TerminalFile = {
     dateCreated: string;
     dateModified: string;
 };
+
+export type Command = {
+    id: string;
+    text: string;
+    workingDirectory: string;
+};
