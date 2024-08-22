@@ -1,11 +1,10 @@
 import { HelpCommand } from "./Commands/HelpCommand";
 import { ListCommand } from "./Commands/ListCommand";
 
-
 export type TerminalDirectory = {
     name: string;
     dateCreated: string; // 2024-01-01 00:00:00
-    parent: TerminalDirectory;
+    parent: TerminalDirectory | null;
     subDirectories: Array<TerminalDirectory>;
     files: Map<string, TerminalFile>;
 }

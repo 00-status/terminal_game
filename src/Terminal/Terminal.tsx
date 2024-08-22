@@ -2,19 +2,21 @@ import { useState } from "react";
 
 import './terminal.css';
 import { Command, ICommand, TerminalDirectory, validCommands } from "./domain/types";
+import { startingDirectory } from "./domain/directories";
 
-    // Have an input directly below a div.
-    // as commands are executed, the appear in the div.
-    // When the div reaches max-height, the overflow is hidden.
-    // Ensure the div's scroll focus is at the bottom after executing a command.
-    //      const element = document.getElementById(id);
-    //      element.scrollTop = element.scrollHeight;
+// Have an input directly below a div.
+// as commands are executed, the appear in the div.
+// When the div reaches max-height, the overflow is hidden.
+// Ensure the div's scroll focus is at the bottom after executing a command.
+//      const element = document.getElementById(id);
+//      element.scrollTop = element.scrollHeight;
 
+// TODO: Add an ID to the output array.
 export const Terminal = () => {
-    const [currentDirectory, setCurrentDirectory] = useState<TerminalDirectory>();
+    const [currentDirectory, setCurrentDirectory] = useState<TerminalDirectory>(startingDirectory);
     const [commandHistory, setCommandHistory] = useState<Array<Command>>([]);
 
-    const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand());
+    const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand(currentDirectory.name));
     const [outputs, setOutputs] = useState<Array<string>>([]);
 
     return <div className="terminal">
@@ -39,17 +41,21 @@ export const Terminal = () => {
                         setCurrentDirectory
                     );
 
-                    setOutputs([...outputs, currentCommand.text, result]);
+                    setOutputs([
+                        ...outputs,
+                        'terminal@' + currentCommand.workingDirectory + '% ' + currentCommand.text,
+                        result
+                    ]);
                     setCommandHistory([...commandHistory, currentCommand]);
-                    setCurrentCommand(createNewCommand());
+                    setCurrentCommand(createNewCommand(currentDirectory.name));
                 }
             }}
         />
     </div>;
 };
 
-const createNewCommand = (): Command => {
-    return { id: crypto.randomUUID(), text: '', workingDirectory: '' };
+const createNewCommand = (directoryName: string): Command => {
+    return { id: crypto.randomUUID(), text: '', workingDirectory: directoryName };
 };
 
 const executeCommand = (
