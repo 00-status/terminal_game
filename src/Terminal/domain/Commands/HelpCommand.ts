@@ -1,14 +1,13 @@
-import { ICommand, TerminalDirectory } from "./types";
+import { ICommand, Command, TerminalDirectory } from "../types";
 
 export const HelpCommand: ICommand = {
     execute(
-        id: string,
-        text: string,
+        command: Command,
+        commandHistory: Array<Command>,
         currentDirectory: TerminalDirectory,
         setCurrentDirectory: (directory: TerminalDirectory) => void,
         args: Array<string>
     ): string {
         return 'Help! Help!';
     }
-
 }

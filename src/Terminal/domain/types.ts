@@ -1,11 +1,13 @@
-import { HelpCommand } from "./HelpCommand";
+import { HelpCommand } from "./Commands/HelpCommand";
+import { ListCommand } from "./Commands/ListCommand";
+
 
 export type TerminalDirectory = {
-        name: string;
-        dateCreated: string; // 2024-01-01 00:00:00
-        parent: TerminalDirectory;
-        subDirectories: Array<TerminalDirectory>;
-        files: Map<string, TerminalFile>;
+    name: string;
+    dateCreated: string; // 2024-01-01 00:00:00
+    parent: TerminalDirectory;
+    subDirectories: Array<TerminalDirectory>;
+    files: Map<string, TerminalFile>;
 }
 
 export type TerminalFile = {
@@ -24,8 +26,8 @@ export type Command = {
 
 export interface ICommand {
     execute(
-        id: string,
-        text: string,
+        command: Command,
+        commandHistory: Array<Command>,
         currentDirectory: TerminalDirectory,
         setCurrentDirectory: (directory: TerminalDirectory) => void,
         args: Array<string>
@@ -33,5 +35,6 @@ export interface ICommand {
 };
 
 export const validCommands = new Map<string, ICommand>([
-    ["help", HelpCommand]
+    ["help", HelpCommand],
+    ["list", ListCommand]
 ])

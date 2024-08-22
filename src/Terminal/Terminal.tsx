@@ -3,13 +3,6 @@ import { useState } from "react";
 import './terminal.css';
 import { Command, ICommand, TerminalDirectory, validCommands } from "./domain/types";
 
-    // ToDo: Implement "help" command.
-    //      Have an array of outputs in addition to to the array of commands.
-    //      When a command is typed
-    //          Add the command text to the output array.
-    //          Execute the command's associated Handler
-    //          Add the returned value from the handler to the output array.
-
     // Have an input directly below a div.
     // as commands are executed, the appear in the div.
     // When the div reaches max-height, the overflow is hidden.
@@ -19,15 +12,15 @@ import { Command, ICommand, TerminalDirectory, validCommands } from "./domain/ty
 
 export const Terminal = () => {
     const [currentDirectory, setCurrentDirectory] = useState<TerminalDirectory>();
+    const [commandHistory, setCommandHistory] = useState<Array<Command>>([]);
 
-    const [outputs, setOutputs] = useState<Array<string>>([]);
-    const [commands, setCommands] = useState<Array<Command>>([]);
     const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand());
+    const [outputs, setOutputs] = useState<Array<string>>([]);
 
     return <div className="terminal">
         <h1>Hello world!</h1>
         <div>
-            {outputs.map((outputs) => <div key={outputs}>{outputs}</div>)}
+            {outputs.map((outputs) => <div className="terminal__output" key={outputs}>{outputs}</div>)}
         </div>
         <input
             value={currentCommand.text}
@@ -39,10 +32,15 @@ export const Terminal = () => {
             onKeyUp={(event) => {
                 if (event.key === 'Enter' && currentCommand.text)
                 {
-                    const result = executeCommand(currentCommand, currentDirectory, setCurrentDirectory);
+                    const result = executeCommand(
+                        commandHistory,
+                        currentCommand,
+                        currentDirectory,
+                        setCurrentDirectory
+                    );
 
                     setOutputs([...outputs, currentCommand.text, result]);
-                    setCommands([...commands, currentCommand]);
+                    setCommandHistory([...commandHistory, currentCommand]);
                     setCurrentCommand(createNewCommand());
                 }
             }}
@@ -55,16 +53,17 @@ const createNewCommand = (): Command => {
 };
 
 const executeCommand = (
+    commandHistory: Array<Command>,
     currentCommand: Command,
     currentDirectory: TerminalDirectory,
     setCurrentDirectory: (directory: TerminalDirectory) => void
 ): string => {
     const command: ICommand|undefined = validCommands.get(currentCommand.text);
-    
+
     if (command) {
         return command.execute(
-            currentCommand.id,
-            currentCommand.text,
+            currentCommand,
+            commandHistory,
             currentDirectory,
             setCurrentDirectory,
             []
