@@ -39,19 +39,7 @@ export const Terminal = () => {
             onKeyUp={(event) => {
                 if (event.key === 'Enter' && currentCommand.text)
                 {
-                    var result = '';
-                    const command: ICommand|undefined = validCommands.get(currentCommand.text);
-                    if (command) {
-                        result = command.execute(
-                            currentCommand.id,
-                            currentCommand.text,
-                            currentDirectory,
-                            setCurrentDirectory,
-                            []
-                        );
-                    } else {
-                        result = 'Command not found!'
-                    }
+                    const result = executeCommand(currentCommand, currentDirectory, setCurrentDirectory);
 
                     setOutputs([...outputs, currentCommand.text, result]);
                     setCommands([...commands, currentCommand]);
@@ -64,4 +52,24 @@ export const Terminal = () => {
 
 const createNewCommand = (): Command => {
     return { id: crypto.randomUUID(), text: '', workingDirectory: '' };
+};
+
+const executeCommand = (
+    currentCommand: Command,
+    currentDirectory: TerminalDirectory,
+    setCurrentDirectory: (directory: TerminalDirectory) => void
+): string => {
+    const command: ICommand|undefined = validCommands.get(currentCommand.text);
+    
+    if (command) {
+        return command.execute(
+            currentCommand.id,
+            currentCommand.text,
+            currentDirectory,
+            setCurrentDirectory,
+            []
+        );
+    } else {
+        return 'Command not found!'
+    }
 };
