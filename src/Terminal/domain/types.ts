@@ -1,3 +1,5 @@
+import { HelpCommand } from "./HelpCommand";
+
 export type TerminalDirectory = {
         name: string;
         dateCreated: string; // 2024-01-01 00:00:00
@@ -19,3 +21,17 @@ export type Command = {
     text: string;
     workingDirectory: string;
 };
+
+export interface ICommand {
+    execute(
+        id: string,
+        text: string,
+        currentDirectory: TerminalDirectory,
+        setCurrentDirectory: (directory: TerminalDirectory) => void,
+        args: Array<string>
+    ): string;
+};
+
+export const validCommands = new Map<string, ICommand>([
+    ["help", HelpCommand]
+])

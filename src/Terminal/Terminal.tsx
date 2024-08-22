@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import './terminal.css';
-import { Command, TerminalDirectory } from "./domain/types";
+import { Command, ICommand, TerminalDirectory, validCommands } from "./domain/types";
 
     // ToDo: Implement "help" command.
     //      Have an array of outputs in addition to to the array of commands.
@@ -20,19 +20,14 @@ import { Command, TerminalDirectory } from "./domain/types";
 export const Terminal = () => {
     const [currentDirectory, setCurrentDirectory] = useState<TerminalDirectory>();
 
+    const [outputs, setOutputs] = useState<Array<string>>([]);
     const [commands, setCommands] = useState<Array<Command>>([]);
     const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand());
-
-    // Find what the command is via a map: { key: CommandName }
-    // Instantiate the command
-    //      const command = eval(`new ${CommandName}()`);
-    // execute the handler
-    //      command.execute(id, text, currentDirectory, setCurrentDirectory, arguments);
 
     return <div className="terminal">
         <h1>Hello world!</h1>
         <div>
-            {commands.map((command) => <div key={command.id}>{command.text}</div>)}
+            {outputs.map((outputs) => <div key={outputs}>{outputs}</div>)}
         </div>
         <input
             value={currentCommand.text}
@@ -44,6 +39,21 @@ export const Terminal = () => {
             onKeyUp={(event) => {
                 if (event.key === 'Enter' && currentCommand.text)
                 {
+                    var result = '';
+                    const command: ICommand|undefined = validCommands.get(currentCommand.text);
+                    if (command) {
+                        result = command.execute(
+                            currentCommand.id,
+                            currentCommand.text,
+                            currentDirectory,
+                            setCurrentDirectory,
+                            []
+                        );
+                    } else {
+                        result = 'Command not found!'
+                    }
+
+                    setOutputs([...outputs, currentCommand.text, result]);
                     setCommands([...commands, currentCommand]);
                     setCurrentCommand(createNewCommand());
                 }
