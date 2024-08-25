@@ -1,6 +1,6 @@
 import { ICommand, Command, TerminalDirectory } from "../types";
 
-export const ListCommand: ICommand = {
+export const HistoryCommand: ICommand = {
     execute(
         command: Command,
         commandHistory: Array<Command>,

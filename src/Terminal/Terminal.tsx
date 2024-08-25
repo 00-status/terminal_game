@@ -12,17 +12,23 @@ import { startingDirectory } from "./domain/directories";
 //      element.scrollTop = element.scrollHeight;
 
 // TODO: Add an ID to the output array.
+
+type Output = {
+    id: string;
+    output: string;
+};
+
 export const Terminal = () => {
     const [currentDirectory, setCurrentDirectory] = useState<TerminalDirectory>(startingDirectory);
     const [commandHistory, setCommandHistory] = useState<Array<Command>>([]);
 
     const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand(currentDirectory.name));
-    const [outputs, setOutputs] = useState<Array<string>>([]);
+    const [outputs, setOutputs] = useState<Array<Output>>([]);
 
     return <div className="terminal">
         <h1>Hello world!</h1>
         <div>
-            {outputs.map((outputs) => <div className="terminal__output" key={outputs}>{outputs}</div>)}
+            {outputs.map((output) => <div className="terminal__output" key={output.id}>{output.output}</div>)}
         </div>
         <input
             value={currentCommand.text}
@@ -43,8 +49,8 @@ export const Terminal = () => {
 
                     setOutputs([
                         ...outputs,
-                        'terminal@' + currentCommand.workingDirectory + '% ' + currentCommand.text,
-                        result
+                        { id: crypto.randomUUID(), output: 'terminal@' + currentCommand.workingDirectory + '% ' + currentCommand.text },
+                        { id: crypto.randomUUID(), output: result }
                     ]);
                     setCommandHistory([...commandHistory, currentCommand]);
                     setCurrentCommand(createNewCommand(currentDirectory.name));

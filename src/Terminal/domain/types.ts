@@ -1,5 +1,5 @@
 import { HelpCommand } from "./Commands/HelpCommand";
-import { ListCommand } from "./Commands/ListCommand";
+import { HistoryCommand } from "./Commands/HistoryCommand";
 
 export type TerminalDirectory = {
     name: string;
@@ -35,5 +35,5 @@ export interface ICommand {
 
 export const validCommands = new Map<string, ICommand>([
     ["help", HelpCommand],
-    ["list", ListCommand]
+    ["history", HistoryCommand]
 ])
