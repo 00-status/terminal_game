@@ -22,7 +22,7 @@ export const directories: Map<string, TerminalDirectory> = new Map([
     [
         '/documents',
         {
-            name: '/documents',
+            name: '/documents/',
             dateCreated: '2237-01-12 00:00:00',
             parent: '/',
             subDirectories: [],
@@ -32,9 +32,19 @@ export const directories: Map<string, TerminalDirectory> = new Map([
     [
         '/emails',
         {
-            name: '/documents',
+            name: '/emails/',
             dateCreated: '2237-01-07 00:00:00',
             parent: '/',
+            subDirectories: ['john'],
+            files: new Map<string, TerminalFile>()
+        }
+    ],
+    [
+        '/emails/john',
+        {
+            name: '/emails/john/',
+            dateCreated: '2237-01-07 00:00:00',
+            parent: '/emails/',
             subDirectories: [],
             files: new Map<string, TerminalFile>()
         }

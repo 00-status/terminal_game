@@ -11,19 +11,10 @@ export const ChangeDirectoryCommand: ICommand = {
     ): string {
         const commandChunks: string[] = command.text.split(' ');
 
-        const directoryToMoveTo = commandChunks[1];
+        const directoryToMoveTo: string = commandChunks[1] ?? '';
+        const newDirectoryKey: string = findDirectoryKey(directoryToMoveTo, currentDirectory);
 
-        const newDirectoryKey: string | null = directoryToMoveTo === '../'
-            ? currentDirectory.parent
-            : directoryToMoveTo;
-
-        if (newDirectoryKey === null) {
-            return 'No parent directory!';
-        }
-
-        console.log(command.workingDirectory);
-
-        const newDirectory = directories.get(command.workingDirectory + newDirectoryKey);
+        const newDirectory = directories.get(newDirectoryKey);
 
         if (newDirectory) {
             setCurrentDirectory(newDirectory);
@@ -32,4 +23,24 @@ export const ChangeDirectoryCommand: ICommand = {
             return 'No such file or directory: ' + directoryToMoveTo;
         }
     }
+};
+
+const findDirectoryKey = (directoryToMoveTo: string, currentDirectory: TerminalDirectory): string => {
+    if (directoryToMoveTo.match('../')) {
+        return currentDirectory.parent ?? '';
+        // pwd = /emails/john/
+        // cd ../../documents
+        // cd {../../}documents
+        // cd /documents
+        // Getting the parent's parent.
+        // For each "../"
+        //      grab the FQDN of the parent directory
+        //      If the parent's FQDN is null
+        //          This is the root node. Exit loop
+
+    } else if (directoryToMoveTo.match('./')) {
+        return directoryToMoveTo.replace('./', currentDirectory.name)
+    }
+
+    throw new Error('Command argument must begin with either ../ or ./');
 };
