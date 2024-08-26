@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import './terminal.css';
 import { Command, ICommand, TerminalDirectory, validCommands } from "./domain/types";
@@ -19,10 +19,15 @@ type Output = {
 export const Terminal = () => {
     const [currentDirectory, setCurrentDirectory] = useState<TerminalDirectory>(startingDirectory);
     const [commandHistory, setCommandHistory] = useState<Array<Command>>([]);
-    const [currentCommandIndex, setCurrentCommandIndex] = useState<number>(0);
 
     const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand(currentDirectory.name));
     const [outputs, setOutputs] = useState<Array<Output>>([]);
+
+    useEffect(() => {
+        setCurrentCommand((state) => {
+            return {...state, workingDirectory: currentDirectory.name}
+        })
+    }, [currentDirectory]);
 
     return <div className="terminal">
         <h1>Hello world!</h1>
@@ -76,7 +81,7 @@ const executeCommand = (
     currentDirectory: TerminalDirectory,
     setCurrentDirectory: (directory: TerminalDirectory) => void
 ): string => {
-    const command: ICommand|undefined = validCommands.get(currentCommand.text);
+    const command: ICommand|undefined = validCommands.get(currentCommand.text.split(' ')[0]);
 
     if (command) {
         return command.execute(

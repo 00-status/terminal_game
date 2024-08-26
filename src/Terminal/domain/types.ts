@@ -1,11 +1,12 @@
+import { ChangeDirectoryCommand } from "./Commands/ChangeDirectoryCommand";
 import { HelpCommand } from "./Commands/HelpCommand";
 import { HistoryCommand } from "./Commands/HistoryCommand";
 
 export type TerminalDirectory = {
     name: string;
     dateCreated: string; // 2024-01-01 00:00:00
-    parent: TerminalDirectory | null;
-    subDirectories: Array<TerminalDirectory>;
+    parent: string | null;
+    subDirectories: Array<string>;
     files: Map<string, TerminalFile>;
 }
 
@@ -35,5 +36,6 @@ export interface ICommand {
 
 export const validCommands = new Map<string, ICommand>([
     ["help", HelpCommand],
-    ["history", HistoryCommand]
+    ["history", HistoryCommand],
+    ['cd', ChangeDirectoryCommand]
 ])
