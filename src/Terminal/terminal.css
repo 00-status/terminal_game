@@ -18,3 +18,17 @@
 .terminal__output {
     white-space: pre;
 }
+
+.terminal__input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.terminal__input {
+    border: none;
+}
+
+input:focus {
+    outline: none;
+}

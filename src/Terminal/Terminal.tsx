@@ -11,8 +11,6 @@ import { startingDirectory } from "./domain/directories";
 //      const element = document.getElementById(id);
 //      element.scrollTop = element.scrollHeight;
 
-// TODO: Add an ID to the output array.
-
 type Output = {
     id: string;
     output: string;
@@ -21,6 +19,7 @@ type Output = {
 export const Terminal = () => {
     const [currentDirectory, setCurrentDirectory] = useState<TerminalDirectory>(startingDirectory);
     const [commandHistory, setCommandHistory] = useState<Array<Command>>([]);
+    const [currentCommandIndex, setCurrentCommandIndex] = useState<number>(0);
 
     const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand(currentDirectory.name));
     const [outputs, setOutputs] = useState<Array<Output>>([]);
@@ -30,33 +29,40 @@ export const Terminal = () => {
         <div>
             {outputs.map((output) => <div className="terminal__output" key={output.id}>{output.output}</div>)}
         </div>
-        <input
-            value={currentCommand.text}
-            onChange={(event) => {
-                const newValue = event.target.value ?? '';
+        <div className="terminal__input-wrapper">
+            <div>
+                {'terminal@' + currentCommand.workingDirectory + '% '}
+            </div>
+            <input
+                autoFocus
+                onBlur={(event) => event.target.focus()}
+                className="terminal__input"
+                value={currentCommand.text}
+                onChange={(event) => {
+                    const newValue = event.target.value ?? '';
 
-                setCurrentCommand({ ...currentCommand, text: newValue });
-            }}
-            onKeyUp={(event) => {
-                if (event.key === 'Enter' && currentCommand.text)
-                {
-                    const result = executeCommand(
-                        commandHistory,
-                        currentCommand,
-                        currentDirectory,
-                        setCurrentDirectory
-                    );
+                    setCurrentCommand({ ...currentCommand, text: newValue });
+                }}
+                onKeyUp={(event) => {
+                    if (event.key === 'Enter' && currentCommand.text) {
+                        const result = executeCommand(
+                            commandHistory,
+                            currentCommand,
+                            currentDirectory,
+                            setCurrentDirectory
+                        );
 
-                    setOutputs([
-                        ...outputs,
-                        { id: crypto.randomUUID(), output: 'terminal@' + currentCommand.workingDirectory + '% ' + currentCommand.text },
-                        { id: crypto.randomUUID(), output: result }
-                    ]);
-                    setCommandHistory([...commandHistory, currentCommand]);
-                    setCurrentCommand(createNewCommand(currentDirectory.name));
-                }
-            }}
-        />
+                        setOutputs([
+                            ...outputs,
+                            { id: crypto.randomUUID(), output: 'terminal@' + currentCommand.workingDirectory + '% ' + currentCommand.text },
+                            { id: crypto.randomUUID(), output: result }
+                        ]);
+                        setCommandHistory([...commandHistory, currentCommand]);
+                        setCurrentCommand(createNewCommand(currentDirectory.name));
+                    }
+                }}
+            />
+        </div>
     </div>;
 };
 
