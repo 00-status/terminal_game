@@ -14,36 +14,13 @@ export const ChangeDirectoryCommand: ICommand = {
         const directoryToMoveTo: string = commandChunks[1] ?? '';
 
         const newDirectory = navigateDirectories(directoryToMoveTo, currentDirectory);
-        if (newDirectory) {
-            setCurrentDirectory(newDirectory);
-            return '';
-        } else {
-            return 'No such file or directory: ' + directoryToMoveTo;
-        }
+        setCurrentDirectory(newDirectory);
+
+        return '';
     }
 };
 
-// ./john
-// ../
-// ../documents
-
-// If we could find the next directory in chunks, that would be ideal
-// PWD = /emails
-// ./john/../../documents
-// {./}{john/}{../}{../}{documents}
-// Using Split: {.}{john}{..}{..}{documents}
-//
-// Alogrithm:
-//      Determine Starting Directory (root, current, or parent)
-//      split the string into segments, separating on the next forward-slash
-//      For each segment
-//          Move the startingDirectory up or down, based on the punctuation 
-//          moveUpDirectory(currentDirectory): TerminalDirectory;
-//          moveDownDirectory(currentDirectory, desiredDirectory): TerminalDirectory;
-//          moveToRoot(): TerminalDirectory;
-//      If the directory cannot be found, throw an error.
-
-
+// TODO: Surface errors related to unknown directories
 const navigateDirectories = (directoryString: string, currentDirectory: TerminalDirectory): TerminalDirectory => {
     const directoryGroups = directoryString.split('/');
 
