@@ -8,7 +8,9 @@ export const ListCommand: ICommand = {
         setCurrentDirectory: (directory: TerminalDirectory) => void,
         args: Array<string>
     ): string {        
-        const subDirectories = currentDirectory.subDirectories.join("\n");
-        return subDirectories;
+        const subDirectories = [...currentDirectory.subDirectories].map(directory => '{dir}\t' + directory);
+        const files = [...currentDirectory.files.keys()].map(file => '{file}\t' + file);
+
+        return [...subDirectories, ...files].join("\n");
     }
 }

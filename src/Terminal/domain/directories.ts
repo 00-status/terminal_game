@@ -26,7 +26,20 @@ export const directories: Map<string, TerminalDirectory> = new Map([
             dateCreated: '2237-01-12 00:00:00',
             parent: '/',
             subDirectories: [],
-            files: new Map<string, TerminalFile>()
+            files: new Map<string, TerminalFile>(
+                [
+                    [
+                        'README.md',
+                        {
+                            name: 'README.md',
+                            contents: 'Banana!',
+                            creatorUsername: '00-status',
+                            dateCreated: '2337-01-23 00:00:00',
+                            dateModified: '2337-08-02 00:00:00'
+                        }
+                    ]
+                ]
+            )
         }
     ],
     [
@@ -36,7 +49,20 @@ export const directories: Map<string, TerminalDirectory> = new Map([
             dateCreated: '2237-01-07 00:00:00',
             parent: '/',
             subDirectories: ['john'],
-            files: new Map<string, TerminalFile>()
+            files: new Map<string, TerminalFile>(
+                [
+                    [
+                        'little_italy.txt',
+                        {
+                            name: 'little_italy.txt',
+                            contents: 'Date: 2337-06-04 00:00:00',
+                            creatorUsername: '00-status',
+                            dateCreated: '2337-06-04 00:00:00',
+                            dateModified: '2337-06-04 00:00:00'
+                        }
+                    ]
+                ]
+            )
         }
     ],
     [
