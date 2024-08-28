@@ -30,7 +30,7 @@ export const Terminal = () => {
     }, [currentDirectory]);
 
     return <div className="terminal">
-        <h1>Hello world!</h1>
+        <h1>Terminal</h1>
         <div>
             {outputs.map((output) => <div className="terminal__output" key={output.id}>{output.output}</div>)}
         </div>
@@ -40,7 +40,6 @@ export const Terminal = () => {
             </div>
             <input
                 autoFocus
-                onBlur={(event) => event.target.focus()}
                 className="terminal__input"
                 value={currentCommand.text}
                 onChange={(event) => {
