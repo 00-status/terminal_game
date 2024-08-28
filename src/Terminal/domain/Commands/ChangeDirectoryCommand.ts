@@ -12,10 +12,8 @@ export const ChangeDirectoryCommand: ICommand = {
         const commandChunks: string[] = command.text.split(' ');
 
         const directoryToMoveTo: string = commandChunks[1] ?? '';
-        const newDirectoryKey: string = findDirectoryKey(directoryToMoveTo, currentDirectory);
 
-        const newDirectory = directories.get(newDirectoryKey);
-
+        const newDirectory = navigateDirectories(directoryToMoveTo, currentDirectory);
         if (newDirectory) {
             setCurrentDirectory(newDirectory);
             return '';
@@ -46,17 +44,21 @@ export const ChangeDirectoryCommand: ICommand = {
 //      If the directory cannot be found, throw an error.
 
 
-const navigateDirectories = (directoryString: string, currentDirectory: TerminalDirectory) => {
+const navigateDirectories = (directoryString: string, currentDirectory: TerminalDirectory): TerminalDirectory => {
     const directoryGroups = directoryString.split('/');
 
-    var carry = currentDirectory;
+    var carry: TerminalDirectory = currentDirectory;
     directoryGroups.forEach((group: string) => {
+        console.log(carry);
         switch (group) {
             case '.':
                 // Current directory, no change
                 break;
             case '..':
-                // Move up a directory
+                const newDirectory = moveUpDirectory(carry);
+                if (newDirectory) {
+                    carry = newDirectory;
+                }
                 break;
             case '':
                 // Root Directory
@@ -66,10 +68,13 @@ const navigateDirectories = (directoryString: string, currentDirectory: Terminal
                 break;
         }
     });
+
+    return carry;
 };
 
-const moveUpDirectory = (): TerminalDirectory => {
-    return {} as TerminalDirectory;
+const moveUpDirectory = (currentDirectory: TerminalDirectory): TerminalDirectory | null => {
+    const parentDirectory = directories.get(currentDirectory.parent ?? '');
+    return parentDirectory ?? null;
 };
 
 const moveDownDirectory = (): TerminalDirectory => {
