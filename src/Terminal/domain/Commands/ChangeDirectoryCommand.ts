@@ -25,9 +25,63 @@ export const ChangeDirectoryCommand: ICommand = {
     }
 };
 
+// ./john
+// ../
+// ../documents
+
+// If we could find the next directory in chunks, that would be ideal
+// PWD = /emails
+// ./john/../../documents
+// {./}{john/}{../}{../}{documents}
+// Using Split: {.}{john}{..}{..}{documents}
+//
+// Alogrithm:
+//      Determine Starting Directory (root, current, or parent)
+//      split the string into segments, separating on the next forward-slash
+//      For each segment
+//          Move the startingDirectory up or down, based on the punctuation 
+//          moveUpDirectory(currentDirectory): TerminalDirectory;
+//          moveDownDirectory(currentDirectory, desiredDirectory): TerminalDirectory;
+//          moveToRoot(): TerminalDirectory;
+//      If the directory cannot be found, throw an error.
+
+
+const navigateDirectories = (directoryString: string, currentDirectory: TerminalDirectory) => {
+    const directoryGroups = directoryString.split('/');
+
+    var carry = currentDirectory;
+    directoryGroups.forEach((group: string) => {
+        switch (group) {
+            case '.':
+                // Current directory, no change
+                break;
+            case '..':
+                // Move up a directory
+                break;
+            case '':
+                // Root Directory
+                break;
+            default:
+                // The name of a directory, index into it.
+                break;
+        }
+    });
+};
+
+const moveUpDirectory = (): TerminalDirectory => {
+    return {} as TerminalDirectory;
+};
+
+const moveDownDirectory = (): TerminalDirectory => {
+    return {} as TerminalDirectory;
+};
+
 const findDirectoryKey = (directoryToMoveTo: string, currentDirectory: TerminalDirectory): string => {
     if (directoryToMoveTo.match('../')) {
+        const loopCount = directoryToMoveTo.match(/\.\.\//gm);
+
         return currentDirectory.parent ?? '';
+
         // pwd = /emails/john/
         // cd ../../documents
         // cd {../../}documents
