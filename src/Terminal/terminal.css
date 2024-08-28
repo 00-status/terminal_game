@@ -1,17 +1,33 @@
+html, body {
+    height: 100%;
+}
+
 #app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 24px;
+
+    background-color: black;
+}
+
+.terminal__header {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    gap: 24px;
 }
 
 .terminal__title {
+    font-size: 44px;
     font-family: "Kode Mono", monospace;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
+
+    color: greenyellow;
 }
 
 .terminal {
@@ -26,6 +42,8 @@
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+
+    color: greenyellow;
 }
 
 .terminal__output {
@@ -36,7 +54,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border: 1px solid black;
+    gap: 8px;
+
+    border: 1px solid greenyellow;
 }
 
 .terminal__input {
@@ -47,6 +67,9 @@
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+
+    background-color: black;
+    color: greenyellow;
 }
 
 input:focus {
