@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import './terminal.css';
 import { Command, ICommand, TerminalDirectory, validCommands } from "./domain/types";
@@ -23,6 +23,12 @@ export const Terminal = () => {
     const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand(currentDirectory.name));
     const [outputs, setOutputs] = useState<Array<Output>>([]);
 
+    const inputRef = useRef<HTMLInputElement | null>(null);
+
+    const onInputWrapperClick = () => {
+        inputRef.current?.focus();
+    };
+
     useEffect(() => {
         setCurrentCommand((state) => {
             return {...state, workingDirectory: currentDirectory.name}
@@ -34,11 +40,12 @@ export const Terminal = () => {
         <div>
             {outputs.map((output) => <div className="terminal__output" key={output.id}>{output.output}</div>)}
         </div>
-        <div className="terminal__input-wrapper">
+        <div onClick={onInputWrapperClick} className="terminal__input-wrapper">
             <div>
                 {'terminal@' + currentCommand.workingDirectory + '% '}
             </div>
             <input
+                ref={inputRef}
                 autoFocus
                 className="terminal__input"
                 value={currentCommand.text}
