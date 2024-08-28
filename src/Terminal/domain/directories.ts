@@ -1,7 +1,7 @@
 import { TerminalDirectory, TerminalFile } from "./types";
 
 export const startingDirectory: TerminalDirectory = {
-    name: '/',
+    name: '',
     dateCreated: '2237-01-01 00:00:00',
     parent: null,
     subDirectories: ['documents', 'emails'],
@@ -12,7 +12,7 @@ export const directories: Map<string, TerminalDirectory> = new Map([
     [
         '/',
         {
-            name: '/',
+            name: '',
             dateCreated: '2237-01-01 00:00:00',
             parent: null,
             subDirectories: ['documents', 'emails'],
@@ -22,7 +22,7 @@ export const directories: Map<string, TerminalDirectory> = new Map([
     [
         '/documents',
         {
-            name: '/documents',
+            name: 'documents',
             dateCreated: '2237-01-12 00:00:00',
             parent: '/',
             subDirectories: [],
@@ -32,7 +32,7 @@ export const directories: Map<string, TerminalDirectory> = new Map([
     [
         '/emails',
         {
-            name: '/emails',
+            name: 'emails',
             dateCreated: '2237-01-07 00:00:00',
             parent: '/',
             subDirectories: ['john'],
@@ -42,7 +42,7 @@ export const directories: Map<string, TerminalDirectory> = new Map([
     [
         '/emails/john',
         {
-            name: '/emails/john',
+            name: 'john',
             dateCreated: '2237-01-07 00:00:00',
             parent: '/emails',
             subDirectories: [],

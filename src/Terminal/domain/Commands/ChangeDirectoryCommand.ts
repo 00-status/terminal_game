@@ -49,7 +49,6 @@ const navigateDirectories = (directoryString: string, currentDirectory: Terminal
 
     var carry: TerminalDirectory = currentDirectory;
     directoryGroups.forEach((group: string) => {
-        console.log(carry);
         switch (group) {
             case '.':
                 // Current directory, no change
@@ -65,6 +64,10 @@ const navigateDirectories = (directoryString: string, currentDirectory: Terminal
                 break;
             default:
                 // The name of a directory, index into it.
+                const newSubDirectory = moveDownDirectory(carry, group);
+                if (newSubDirectory) {
+                    carry = newSubDirectory;
+                }
                 break;
         }
     });
@@ -77,29 +80,9 @@ const moveUpDirectory = (currentDirectory: TerminalDirectory): TerminalDirectory
     return parentDirectory ?? null;
 };
 
-const moveDownDirectory = (): TerminalDirectory => {
-    return {} as TerminalDirectory;
-};
+const moveDownDirectory = (currentDirectory: TerminalDirectory, desiredDirectory: string): TerminalDirectory | null => {
+    const formattedDirectory = (currentDirectory.parent ?? '') + currentDirectory.name + '/' + desiredDirectory;
+    const newDirectory = directories.get(formattedDirectory);
 
-const findDirectoryKey = (directoryToMoveTo: string, currentDirectory: TerminalDirectory): string => {
-    if (directoryToMoveTo.match('../')) {
-        const loopCount = directoryToMoveTo.match(/\.\.\//gm);
-
-        return currentDirectory.parent ?? '';
-
-        // pwd = /emails/john/
-        // cd ../../documents
-        // cd {../../}documents
-        // cd /documents
-        // Getting the parent's parent.
-        // For each "../"
-        //      grab the FQDN of the parent directory
-        //      If the parent's FQDN is null
-        //          This is the root node. Exit loop
-
-    } else if (directoryToMoveTo.match('./')) {
-        return directoryToMoveTo.replace('./', currentDirectory.name)
-    }
-
-    throw new Error('Command argument must begin with either ../ or ./');
+    return newDirectory ?? null;
 };
