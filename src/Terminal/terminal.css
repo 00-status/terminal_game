@@ -7,12 +7,25 @@
     gap: 24px;
 }
 
+.terminal__title {
+    font-family: "Kode Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
 .terminal {
     display: flex;
     flex-direction: column;
     width: 50%;
 
     gap: 24px;
+
+    font-family: "Noto Sans Mono", monospace;
+    font-size: 16px;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .terminal__output {
@@ -28,6 +41,12 @@
 
 .terminal__input {
     border: none;
+
+    font-family: "Noto Sans Mono", monospace;
+    font-size: 16px;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 input:focus {
