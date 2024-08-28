@@ -24,6 +24,28 @@ describe('ChangeDirectoryCommand', () => {
         expect(setCurrentDirectory).toHaveBeenCalledWith(expectedDirectory);
     });
 
+    it('should enter a subdirectory from the root directory', () => {
+        const executedCommand: Command = {
+            id: 'test-1',
+            text: 'cd /documents',
+            workingDirectory: '/'
+        };
+        const setCurrentDirectory = jest.fn();
+
+        const startingDirectory = directories.get('/emails/john');
+        ChangeDirectoryCommand.execute(
+            executedCommand,
+            [],
+            startingDirectory as TerminalDirectory,
+            setCurrentDirectory,
+            []
+        );
+
+        const expectedDirectory = directories.get('/documents');
+        expect(setCurrentDirectory).toHaveBeenCalledTimes(1);
+        expect(setCurrentDirectory).toHaveBeenCalledWith(expectedDirectory);
+    });
+
     it('should enter multiple sub-directories', () => {
         const executedCommand: Command = {
             id: 'test-1',
@@ -75,7 +97,7 @@ describe('ChangeDirectoryCommand', () => {
         };
         const setCurrentDirectory = jest.fn();
 
-        const startingDirectory = directories.get('/emails/john')
+        const startingDirectory = directories.get('/emails/john');
         ChangeDirectoryCommand.execute(
             executedCommand,
             [],

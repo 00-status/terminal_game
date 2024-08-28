@@ -1,4 +1,4 @@
-import { directories } from "../directories";
+import { directories, startingDirectory } from "../directories";
 import { Command, ICommand, TerminalDirectory } from "../types";
 
 export const ChangeDirectoryCommand: ICommand = {
@@ -60,10 +60,9 @@ const navigateDirectories = (directoryString: string, currentDirectory: Terminal
                 }
                 break;
             case '':
-                // Root Directory
+                carry = startingDirectory;
                 break;
             default:
-                // The name of a directory, index into it.
                 const newSubDirectory = moveDownDirectory(carry, group);
                 if (newSubDirectory) {
                     carry = newSubDirectory;
