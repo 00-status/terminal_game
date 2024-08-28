@@ -40,4 +40,5 @@ export const validCommands = new Map<string, ICommand>([
     ["history", HistoryCommand],
     ['cd', ChangeDirectoryCommand],
     ['list', ListCommand],
+    ['ls', ListCommand],
 ])
