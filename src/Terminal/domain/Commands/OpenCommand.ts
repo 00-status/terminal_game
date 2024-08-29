@@ -1,4 +1,5 @@
-import { ICommand, Command, TerminalDirectory } from "../types";
+import { navigateDirectories } from "../navigateDirectories";
+import { ICommand, Command, TerminalDirectory, TerminalFile } from "../types";
 
 export const OpenCommand: ICommand = {
     execute(
@@ -10,25 +11,17 @@ export const OpenCommand: ICommand = {
     ): string {
         const splitCommandText = command.text.split(" ");
 
-        const file = currentDirectory.files.get(splitCommandText[1]);
+        const filePathGroups = splitCommandText[1].split("/");
 
-        // pwd = documents
-        //SCENARIO 1
-        // open ../emails/little_italy.txt
-        // open {path}{fileName}
-        // SCENARIO 2
-        // open little_italy.txt
-        // open {fileName}
-        // SCENARIO 3
-        // open /file_3.txt
-        // open {path}{fileName}
+        var file: TerminalFile | null = null;
+        if (filePathGroups.length > 1) {
+            const fileName = filePathGroups.pop();
+            const directory = navigateDirectories(filePathGroups, currentDirectory);
 
-        // split filePath on "/" marks.
-        // If the length is greater than 1
-        //      find the correct directory.
-        // else
-        //      use the current directory
-        // get the file from the found directory
+            file = directory.files.get(fileName ?? '') ?? null;
+        } else {
+            file = currentDirectory.files.get(filePathGroups[0]) ?? null;
+        }
 
         if (file) {
             return file.contents;
