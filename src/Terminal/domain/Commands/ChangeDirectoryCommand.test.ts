@@ -75,7 +75,7 @@ describe('ChangeDirectoryCommand', () => {
         };
         const setCurrentDirectory = jest.fn();
 
-        const startingDirectory = directories.get('/documents')
+        const startingDirectory = directories.get('/emails/john')
         ChangeDirectoryCommand.execute(
             executedCommand,
             [],
@@ -84,7 +84,7 @@ describe('ChangeDirectoryCommand', () => {
             []
         );
 
-        const expectedDirectory = directories.get('/');
+        const expectedDirectory = directories.get('/emails');
         expect(setCurrentDirectory).toHaveBeenCalledTimes(1);
         expect(setCurrentDirectory).toHaveBeenCalledWith(expectedDirectory);
     });
@@ -151,6 +151,28 @@ describe('ChangeDirectoryCommand', () => {
         );
 
         const expectedDirectory = directories.get('/documents');
+        expect(setCurrentDirectory).toHaveBeenCalledTimes(1);
+        expect(setCurrentDirectory).toHaveBeenCalledWith(expectedDirectory);
+    });
+
+    it('should enter the root directory.', () => {
+        const executedCommand: Command = {
+            id: 'test-1',
+            text: 'cd /',
+            workingDirectory: '/'
+        };
+        const setCurrentDirectory = jest.fn();
+
+        const startingDirectory = directories.get('/emails/john')
+        ChangeDirectoryCommand.execute(
+            executedCommand,
+            [],
+            startingDirectory as TerminalDirectory,
+            setCurrentDirectory,
+            []
+        );
+
+        const expectedDirectory = directories.get('/');
         expect(setCurrentDirectory).toHaveBeenCalledTimes(1);
         expect(setCurrentDirectory).toHaveBeenCalledWith(expectedDirectory);
     });
