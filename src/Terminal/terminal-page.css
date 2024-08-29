@@ -28,6 +28,10 @@ html, body {
 }
 
 .terminal-page__background {
+    height: 100%;
+    overflow: hidden;
+    margin: 0 40px;
+
     font-size: 13px;
     filter: blur(4px);
 }
@@ -44,5 +48,5 @@ html, body {
     flex-direction: row;
     justify-content: center;
 
-    background-color: #050a06bf;
+    background-image: linear-gradient(to right, #050a06bf, #10120f);
 }
