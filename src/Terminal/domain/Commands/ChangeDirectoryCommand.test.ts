@@ -133,7 +133,7 @@ describe('ChangeDirectoryCommand', () => {
         expect(setCurrentDirectory).toHaveBeenCalledWith(expectedDirectory);
     });
 
-    it('should enter a sub-directory, move two directories, and enter a child directory.', () => {
+    it('should enter a sub-directory, move up two directories, and then enter a sub-directory.', () => {
         const executedCommand: Command = {
             id: 'test-1',
             text: 'cd ./john/../../documents',
