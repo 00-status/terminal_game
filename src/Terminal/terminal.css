@@ -60,6 +60,8 @@ html, body {
 }
 
 .terminal__input {
+    width: 100%;
+
     border: none;
 
     font-family: "Noto Sans Mono", monospace;
