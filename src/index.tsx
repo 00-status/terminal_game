@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Terminal } from './Terminal/Terminal';
+import { TerminalPage } from './Terminal/TerminalPage';
 
 const rootDomNode = document.getElementById('app');
 
@@ -9,7 +9,7 @@ if (!rootDomNode) {
 }
 
 const router = createBrowserRouter([
-    { path: "/", element: <Terminal /> }
+    { path: "/", element: <TerminalPage /> }
 ]);
 
 const root = createRoot(rootDomNode);
