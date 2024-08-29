@@ -28,6 +28,7 @@ html, body {
 }
 
 .terminal-page__background {
+    font-size: 13px;
     filter: blur(4px);
 }
 
