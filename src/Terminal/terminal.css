@@ -46,6 +46,18 @@ html, body {
     color: greenyellow;
 }
 
+.terminal__output-wrapper {
+    max-height: 400px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none; /* FireFox */
+}
+
+.terminal__output-wrapper::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
 .terminal__output {
     white-space: pre-wrap;
 }

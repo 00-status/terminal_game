@@ -25,6 +25,7 @@ export const Terminal = () => {
     const [outputs, setOutputs] = useState<Array<Output>>([]);
 
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const outputRef = useRef<HTMLDivElement | null>(null);
 
     const onInputWrapperClick = () => {
         inputRef.current?.focus();
@@ -36,11 +37,17 @@ export const Terminal = () => {
         })
     }, [currentDirectory]);
 
+    useEffect(() => {
+        if (outputRef.current) {
+            outputRef.current.scrollTop = outputRef.current.scrollHeight;
+        }
+    }, [outputRef, outputs]);
+
     return <div className="terminal">
         <div className="terminal__header">
             <h1 className="terminal__title">Terminal</h1>
         </div>
-        <div>
+        <div className="terminal__output-wrapper" ref={outputRef}>
             {outputs.map((output) => <div className="terminal__output" key={output.id}>{output.output}</div>)}
         </div>
         <div onClick={onInputWrapperClick} className="terminal__input-wrapper">
