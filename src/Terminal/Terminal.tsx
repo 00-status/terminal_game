@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import './terminal.css';
 import { Command, ICommand, TerminalDirectory, validCommands } from "./domain/types";
 import { startingDirectory } from "./domain/directories";
+import { findFileFromString } from "./domain/findFileFromString";
 
 // Have an input directly below a div.
 // as commands are executed, the appear in the div.
@@ -72,6 +73,15 @@ export const Terminal = () => {
                         ]);
                         setCommandHistory([...commandHistory, currentCommand]);
                         setCurrentCommand(createNewCommand(currentDirectory.name));
+                    }
+
+                    if (event.key === 'Tab' && currentCommand.text) {
+                        findFileFromString(currentCommand, setCurrentCommand, currentDirectory);
+                    }
+                }}
+                onKeyDown={(event) => {
+                    if (event.key === "Tab") {
+                        event.preventDefault();
                     }
                 }}
             />
