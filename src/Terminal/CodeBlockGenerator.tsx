@@ -2,7 +2,7 @@ import './code-block-generator.css';
 
 export const CodeBlockGenerator = () => {
     const result = getSnippet().split("").map((character, index) => {
-        const style = { "animationDelay": (0.1 + index / 10) + "s" };
+        const style = { "animationDelay": (0.2 + index / 10) + "s" };
         return <span className='character-span' aria-hidden key={index} style={style}>
             {character}
         </span>;

@@ -64,8 +64,8 @@ html, body {
 }
 
 .terminal-page__title {
-    font-size: 44px;
-    font-family: "Kode Mono", monospace;
+    font-size: 80px;
+    font-family: "Ubuntu Mono", monospace;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
