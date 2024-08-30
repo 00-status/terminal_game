@@ -37,9 +37,6 @@ export const Terminal = () => {
     }, [outputRef, outputs]);
 
     return <div className="terminal">
-        <div className="terminal__header">
-            <h1 className="terminal__title">Terminal</h1>
-        </div>
         <div className="terminal__output-wrapper" ref={outputRef}>
             {outputs.map((output) => <div className="terminal__output" key={output.id}>{output.output}</div>)}
         </div>

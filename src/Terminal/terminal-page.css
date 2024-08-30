@@ -33,7 +33,7 @@ html, body {
     margin: 0 40px;
 
     font-size: 13px;
-    filter: blur(4px);
+    filter: blur(3px);
 }
 
 .terminal-page__foreground {
@@ -45,8 +45,55 @@ html, body {
     height: 100%;
 
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
     background-image: linear-gradient(to right, #050a06bf, #10120f);
+}
+
+.terminal-page__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    padding-bottom: 64px;
+
+    border-bottom: 1px solid #67e016;
+}
+
+.terminal-page__title {
+    font-size: 44px;
+    font-family: "Kode Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+
+    color: #67e016;
+}
+
+.terminal-page__nav {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.terminal-page__link {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 140px;
+    padding: 12px;
+
+    border: 1px solid #67e016;
+    border-radius: 12px;
+    transition: all .1s ease-in-out;
+    cursor: pointer;
+}
+.terminal-page__link:hover {
+    background-color: #141613;
+    transform: scale(1.1);
 }
