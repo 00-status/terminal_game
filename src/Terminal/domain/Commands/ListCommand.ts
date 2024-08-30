@@ -1,3 +1,4 @@
+import { navigateDirectories } from "../navigateDirectories";
 import { ICommand, Command, TerminalDirectory } from "../types";
 
 export const ListCommand: ICommand = {
@@ -7,9 +8,14 @@ export const ListCommand: ICommand = {
         currentDirectory: TerminalDirectory,
         setCurrentDirectory: (directory: TerminalDirectory) => void,
         args: Array<string>
-    ): string {        
-        const subDirectories = [...currentDirectory.subDirectories].map(directory => '{dir}\t' + directory);
-        const files = [...currentDirectory.files.keys()].map(file => '{file}\t' + file);
+    ): string {
+        const commandChunks: string[] = command.text.trim().split(' ');
+        const directoryToMoveTo: string = commandChunks[1] ?? '';
+
+        const newDirectory = navigateDirectories(directoryToMoveTo.split("/"), currentDirectory);
+
+        const subDirectories = [...newDirectory.subDirectories].map(directory => '{dir}\t' + directory);
+        const files = [...newDirectory.files.keys()].map(file => '{file}\t' + file);
 
         return [...subDirectories, ...files].join("\n");
     }

@@ -10,7 +10,6 @@ export const ChangeDirectoryCommand: ICommand = {
         args: Array<string>
     ): string {
         const commandChunks: string[] = command.text.trim().split(' ');
-
         const directoryToMoveTo: string = commandChunks[1] ?? '';
 
         const newDirectory = navigateDirectories(directoryToMoveTo.split("/"), currentDirectory);
