@@ -20,7 +20,7 @@
     font-weight: 700;
     font-style: normal;
 
-    color: greenyellow;
+    color: #67e016;
 }
 
 .terminal__output-wrapper {
@@ -45,7 +45,7 @@
     align-items: center;
     gap: 8px;
 
-    border: 1px solid greenyellow;
+    border: 1px solid #67e016;
 }
 
 .terminal__input {

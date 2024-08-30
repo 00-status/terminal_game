@@ -12,7 +12,7 @@ export const findFileFromString = (
         return;
     }
 
-    const filePathGroups = commandStringGroups[1].split("/")
+    const filePathGroups = commandStringGroups[1].split("/");
     const newFilePath = findDirectory(filePathGroups, currentDirectory);
 
     if (newFilePath) {
@@ -40,13 +40,3 @@ const findDirectory = (filePathGroups: Array<string>, currentDirectory: Terminal
             : null;
     }
 };
-
-
-// TAB AUTO-COMPLETE
-// find the proper directory (either the current dir or the dir at the end of the path)
-// if the proper directory cannot be found
-//      do nothing
-// get the partial text string.
-// get a list of all files in the dir.
-// get all files that are a partial match for the string. Sort them alphabetically.
-// return the first string in that list.

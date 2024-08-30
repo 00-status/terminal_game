@@ -5,13 +5,6 @@ import { Command, ICommand, TerminalDirectory, validCommands } from "./domain/ty
 import { startingDirectory } from "./domain/directories";
 import { findFileFromString } from "./domain/findFileFromString";
 
-// Have an input directly below a div.
-// as commands are executed, the appear in the div.
-// When the div reaches max-height, the overflow is hidden.
-// Ensure the div's scroll focus is at the bottom after executing a command.
-//      const element = document.getElementById(id);
-//      element.scrollTop = element.scrollHeight;
-
 type Output = {
     id: string;
     output: string;
