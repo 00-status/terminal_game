@@ -15,7 +15,9 @@ export const Terminal = () => {
     const [commandHistory, setCommandHistory] = useState<Array<Command>>([]);
 
     const [currentCommand, setCurrentCommand] = useState<Command>(createNewCommand(currentDirectory.name));
-    const [outputs, setOutputs] = useState<Array<Output>>([]);
+    const [outputs, setOutputs] = useState<Array<Output>>([
+        { id: crypto.randomUUID(), output: 'Welcome. Type "help" for a list of commands' }
+    ]);
 
     const inputRef = useRef<HTMLInputElement | null>(null);
     const outputRef = useRef<HTMLDivElement | null>(null);
