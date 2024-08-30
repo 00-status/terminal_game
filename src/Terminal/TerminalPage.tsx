@@ -5,8 +5,9 @@ import { Terminal } from "./Terminal";
 import { CodeBlockGenerator } from './CodeBlockGenerator';
 
 // TODO:
-// tab-complete directories.
 // Make a more interesting directory hierarchy.
+// Make a default ouput
+// Make the help command useful.
 
 export const TerminalPage = () => {
     const navigate = useNavigate();
@@ -18,7 +19,9 @@ export const TerminalPage = () => {
         </div>
         <div className="terminal-page__foreground">
             <div className="terminal-page__header">
-                <h1 className="terminal-page__title">Terminal</h1>
+                <h1 className="terminal-page__title">
+                    Terminal
+                </h1>
                 <div className="terminal-page__nav">
                     <a className='terminal-page__link' onClick={() => navigate("#")}>Landing</a>
                 </div>
