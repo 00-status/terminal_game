@@ -1,12 +1,12 @@
 import { navigateDirectories } from "./navigateDirectories";
 import { Command, TerminalDirectory } from "./types";
 
-export const findFileFromString = (
+export const findNextFileSystemObject = (
     command: Command,
     setCommand: (command: Command) => void,
     currentDirectory: TerminalDirectory
 ): void => {
-    const commandStringGroups = command.text.split(" ");
+    const commandStringGroups = command.text.trim().split(" ");
 
     if (commandStringGroups.length <= 1) {
         return;

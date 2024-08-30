@@ -9,7 +9,7 @@ export const ChangeDirectoryCommand: ICommand = {
         setCurrentDirectory: (directory: TerminalDirectory) => void,
         args: Array<string>
     ): string {
-        const commandChunks: string[] = command.text.split(' ');
+        const commandChunks: string[] = command.text.trim().split(' ');
 
         const directoryToMoveTo: string = commandChunks[1] ?? '';
 

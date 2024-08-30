@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import './terminal.css';
 import { Command, ICommand, TerminalDirectory, validCommands } from "./domain/types";
 import { startingDirectory } from "./domain/directories";
-import { findFileFromString } from "./domain/findFileFromString";
+import { findNextFileSystemObject } from "./domain/findNextFileSystemObject";
 
 type Output = {
     id: string;
@@ -73,7 +73,7 @@ export const Terminal = () => {
                     }
 
                     if (event.key === 'Tab' && currentCommand.text) {
-                        findFileFromString(currentCommand, setCurrentCommand, currentDirectory);
+                        findNextFileSystemObject(currentCommand, setCurrentCommand, currentDirectory);
                     }
                 }}
                 onKeyDown={(event) => {

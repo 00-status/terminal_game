@@ -8,6 +8,6 @@ export const HistoryCommand: ICommand = {
         setCurrentDirectory: (directory: TerminalDirectory) => void,
         args: Array<string>
     ): string {
-        return commandHistory.map(command => command.text).join("\n");
+        return commandHistory.map(command => command.text.trim()).join("\n");
     }
 }
