@@ -6,8 +6,6 @@ import { CodeBlockGenerator } from './CodeBlockGenerator';
 
 // TODO:
 // Make a more interesting directory hierarchy.
-// Make a default ouput
-// Regenerate the background code at semi-random intervals.
 
 export const TerminalPage = () => {
     const navigate = useNavigate();

@@ -1,12 +1,26 @@
+import { useEffect, useState } from 'react';
 import './code-block-generator.css';
 
 export const CodeBlockGenerator = () => {
-    const result = getSnippet().split("").map((character, index) => {
+    const [snippet, setSnippet] = useState(getSnippet());
+
+    useEffect(() => {
+        const milliSecondVariance = Math.floor(Math.random() * (40000 - 10000 + 1) + 10000);
+
+        const timeoutID = setTimeout(() => {
+            setSnippet(getSnippet());
+        }, milliSecondVariance);
+
+        return () => clearTimeout(timeoutID);
+    }, [setSnippet, getSnippet, snippet]);
+
+    const result = snippet.split("").map((character, index) => {
         const style = { "animationDelay": (0.2 + index / 10) + "s" };
-        return <span className='character-span' aria-hidden key={index} style={style}>
+        return <span className='character-span' aria-hidden key={crypto.randomUUID()} style={style}>
             {character}
         </span>;
     });
+
     return <div className="code-block-generator">
         {result}
     </div>;
