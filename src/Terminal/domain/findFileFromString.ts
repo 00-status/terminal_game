@@ -8,7 +8,7 @@ export const findFileFromString = (
 ): void => {
     const commandStringGroups = command.text.split(" ");
 
-    if (commandStringGroups.length <= 1 || commandStringGroups[0] !== "open") {
+    if (commandStringGroups.length <= 1) {
         return;
     }
 
