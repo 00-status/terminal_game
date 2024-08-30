@@ -7,7 +7,7 @@ import { CodeBlockGenerator } from './CodeBlockGenerator';
 // TODO:
 // Make a more interesting directory hierarchy.
 // Make a default ouput
-// Make the help command useful.
+// Regenerate the background code at semi-random intervals.
 
 export const TerminalPage = () => {
     const navigate = useNavigate();
