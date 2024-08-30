@@ -1,8 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 
 import './terminal-page.css';
 import { Terminal } from "./Terminal";
 import { CodeBlockGenerator } from './CodeBlockGenerator';
-import { useNavigate } from 'react-router-dom';
 
 // TODO:
 // tab-complete directories.

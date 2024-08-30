@@ -13,26 +13,26 @@ export const findFileFromString = (
     }
 
     const filePathGroups = commandStringGroups[1].split("/");
-    const newFilePath = findDirectory(filePathGroups, currentDirectory);
+    const newFilePath = findFileName(filePathGroups, currentDirectory);
 
     if (newFilePath) {
         setCommand({ ...command, text: commandStringGroups[0] + " " + newFilePath });
     }
 };
 
-const findDirectory = (filePathGroups: Array<string>, currentDirectory: TerminalDirectory): string | null => {
+const findFileName = (filePathGroups: Array<string>, currentDirectory: TerminalDirectory): string | null => {
     if (filePathGroups.length > 1) {
         const fileName = filePathGroups.pop();
         const directory = navigateDirectories(filePathGroups, currentDirectory);
 
-        const potentialFiles = [...directory.files.keys()];
+        const potentialFiles = [...directory.files.keys(), ...directory.subDirectories];
         const filteredFiles = potentialFiles.filter((file: string) => fileName ? file.startsWith(fileName) : false);
 
         return filteredFiles.length > 0
             ? filePathGroups.join("/") + "/" + filteredFiles[0]
             : null;
     } else {
-        const potentialFiles = [...currentDirectory.files.keys()];
+        const potentialFiles = [...currentDirectory.files.keys(), ...currentDirectory.subDirectories];
         const filteredFiles = potentialFiles.filter((file: string) => file.startsWith(filePathGroups[0]));
 
         return filteredFiles.length > 0
