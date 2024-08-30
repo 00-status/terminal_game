@@ -1,8 +1,14 @@
 import './code-block-generator.css';
 
 export const CodeBlockGenerator = () => {
+    const result = getSnippet().split("").map((character, index) => {
+        const style = { "animationDelay": (0.1 + index / 10) + "s" };
+        return <span className='character-span' aria-hidden key={index} style={style}>
+            {character}
+        </span>;
+    });
     return <div className="code-block-generator">
-        {getSnippet()}
+        {result}
     </div>;
 };
 
