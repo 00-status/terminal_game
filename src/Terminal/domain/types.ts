@@ -1,4 +1,5 @@
 import { ChangeDirectoryCommand } from "./Commands/ChangeDirectoryCommand";
+import { ClearCommand } from "./Commands/ClearCommand";
 import { HelpCommand } from "./Commands/HelpCommand";
 import { HistoryCommand } from "./Commands/HistoryCommand";
 import { ListCommand } from "./Commands/ListCommand";
@@ -43,4 +44,6 @@ export const validCommands = new Map<string, ICommand>([
     ['list', ListCommand],
     ['ls', ListCommand],
     ['open', OpenCommand],
+    ['clear', ClearCommand],
+    ['clera', ClearCommand],
 ])
