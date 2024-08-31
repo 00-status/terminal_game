@@ -4,10 +4,6 @@ import './terminal-page.css';
 import { Terminal } from "./Terminal";
 import { CodeBlockGenerator } from './CodeBlockGenerator';
 
-// TODO:
-//      Fix ls and cd commands navigating to root when no path is supplied
-//      Create a pwd command.
-
 export const TerminalPage = () => {
     const navigate = useNavigate();
 

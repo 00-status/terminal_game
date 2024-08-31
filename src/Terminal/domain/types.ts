@@ -4,6 +4,7 @@ import { HelpCommand } from "./Commands/HelpCommand";
 import { HistoryCommand } from "./Commands/HistoryCommand";
 import { ListCommand } from "./Commands/ListCommand";
 import { OpenCommand } from "./Commands/OpenCommand";
+import { WorkingDirectoryCommand } from "./Commands/WorkingDirectoryCommand";
 
 export type TerminalDirectory = {
     name: string;
@@ -46,4 +47,5 @@ export const validCommands = new Map<string, ICommand>([
     ['open', OpenCommand],
     ['clear', ClearCommand],
     ['clera', ClearCommand],
+    ['pwd', WorkingDirectoryCommand],
 ])
