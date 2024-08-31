@@ -12,7 +12,7 @@ export const HelpCommand: ICommand = {
     }
 }
 
-const helpString = `Commands:
+const helpString = `
 cd\t| Moves into a parent or child directory. | cd ./{directory_name} OR cd ../ OR cd ../{directory_name}
 
 clear\t| clears terminal output.
